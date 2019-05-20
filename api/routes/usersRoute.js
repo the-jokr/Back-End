@@ -2,7 +2,7 @@ const express = require("express");
 const route = express.Router();
 const Db = require("../../data/Models/usersModel");
 const bcrypt = require("bcryptjs");
-const auth = require("../middleware/auth");
+const { generateToken } = require("../middleware/auth");
 
 route.get("/", async (req, res, next) => {
   try {
@@ -30,7 +30,7 @@ route.post("/register", async (req, res, next) => {
     const creds = req.body;
     creds.password = bcrypt.hashSync(creds.password, 10);
     const user = await Db.insert(creds);
-    const token = auth.generateToken(user);
+    const token = generateToken(user);
     res.status(201).json({ id: user.id, token });
   } catch (err) {
     next(err);
@@ -41,7 +41,7 @@ route.post("/login", async (req, res, next) => {
     const { username, password } = req.body;
     const user = await Db.getBy({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = auth.generateToken(user);
+      const token = generateToken(user);
       res.status(200).json({ id: user.id, token });
     } else {
       next({ code: 404 });

@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     .createTable("users", field => {
       field.increments();
       field.string("username", 50);
-      field.string("password", 50);
+      field.string("password", 256);
       field
         .integer("roles_id")
         .references("id")
@@ -18,7 +18,7 @@ exports.up = function(knex, Promise) {
     .createTable("jokes", field => {
       field.increments();
       field.string("category", 50);
-      field.text("question", 500);
+      field.text("setup", 500);
       field.text("punch_line", 500);
     })
     .createTable("joke_wallet", field => {

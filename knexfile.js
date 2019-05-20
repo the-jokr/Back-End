@@ -31,7 +31,12 @@ module.exports = {
     seeds: {
       directory: "./data/seeds"
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    pool: {
+      afterCreate: (connection, done) => {
+        connection.run("PRAGMA foreign_keys = ON", done);
+      }
+    }
   },
 
   production: {
@@ -42,7 +47,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations"
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
     }
   }
 };

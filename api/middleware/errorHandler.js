@@ -3,8 +3,12 @@ module.exports = {
 };
 
 function errorHandler(err, req, res, next) {
-  console.log(err);
   switch (err.code) {
+    case 401:
+      return res.status(401).json({
+        msg: "Unauthorized, please supply a valid token in the header",
+        err: err.message
+      });
     case 400:
       return res.status(400).json({
         msg: "Bad request, please make sure all required field are supplied",

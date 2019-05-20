@@ -8,3 +8,4 @@ function userCheck(req, res, next) {
     next({ code: 404 });
   }
 }
+function removeCheck(req, res, next) {}

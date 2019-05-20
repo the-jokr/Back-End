@@ -2,19 +2,8 @@ const express = require("express");
 const route = express.Router();
 const Db = require("../../data/Models/usersModel");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-function generateToken(user) {
-  const payload = {
-    subject: user.id, //what the token is describing,
-    username: user.username
-  };
-  const secret = process.env.JWT_SECRET;
+const auth = require("../middleware/auth");
 
-  const options = {
-    expiresIn: "1h"
-  };
-  return jwt.sign(payload, secret, options);
-}
 route.get("/", async (req, res, next) => {
   try {
     const users = await Db.get();
@@ -41,7 +30,7 @@ route.post("/register", async (req, res, next) => {
     const creds = req.body;
     creds.password = bcrypt.hashSync(creds.password, 10);
     const user = await Db.insert(creds);
-    const token = generateToken(user);
+    const token = auth.generateToken(user);
     res.status(201).json({ id: user.id, token });
   } catch (err) {
     next(err);
@@ -50,9 +39,9 @@ route.post("/register", async (req, res, next) => {
 route.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await Db.getBy(username);
+    const user = await Db.getBy({ username });
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = generateToken(user);
+      const token = auth.generateToken(user);
       res.status(200).json({ id: user.id, token });
     } else {
       next({ code: 404 });

@@ -1,24 +1,39 @@
-module.exports = {
-  errorHandler
-};
+const jwt = require("jsonwebtoken");
+const secrets = require("../secret");
 
-function errorHandler(err, req, res, next) {
-  console.log(err);
-  switch (err.code) {
-    case 400:
-      return res.status(400).json({
-        msg: "Bad request, please make sure all required field are supplied",
-        err: err.message
-      });
-    case 404:
-      return res.status(404).json({
-        msg: "The requested information is not found",
-        err: err.message
-      });
-    default:
-      return res.status(500).json({
-        msg: "There is something wrong with the server",
-        err: err.message
-      });
+module.exports = {
+  protected: function(req, res, next) {
+    const token = req.headers.authorization;
+    jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+      if (err) {
+        return res.status(401).json({ msg: "unauthorized" });
+      }
+      req.decodedToken = decodedToken;
+      next();
+    });
+  },
+  generateToken: function(user) {
+    const payload = {
+      subject: user.id,
+      username: user.username,
+      roles: user.roles_id
+    };
+    const options = {
+      expiresIn: `24h`
+    };
+    return jwt.sign(payload, secrets.jwtSecret, options);
+  },
+  checkRole: function(role) {
+    return function(req, res, next) {
+      if (
+        req.decodedToken &&
+        req.decodedToken.roles &&
+        req.decodedToken.roles.includes(role)
+      ) {
+        next();
+      } else {
+        res.status(403).json({ msg: "role not accessible" });
+      }
+    };
   }
-}
+};

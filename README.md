@@ -1,4 +1,4 @@
-# pokestats API
+# jokr API
 
 ## Introduction
 

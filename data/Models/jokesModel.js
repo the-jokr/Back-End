@@ -10,17 +10,7 @@ module.exports = {
 };
 
 function get() {
-  return Db("jokes as j")
-    .join("joke_wallet as jw", "j.id", "=", "jw.joke_id")
-    .join("users as u", "u.id", "=", "jw.author_id")
-    .select(
-      "j.id",
-      "j.category",
-      "j.setup",
-      "j.punch_line as punchLine",
-      "j.likes",
-      "u.username as author"
-    );
+  return Db("jokes");
 }
 function getById(id) {
   return Db("jokes as j")

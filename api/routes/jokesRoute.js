@@ -20,7 +20,6 @@ route.get("/random", rngGenerator, async (req, res, next) => {
     next(err);
   }
 });
-
 route.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -36,9 +35,9 @@ route.get("/:id", async (req, res, next) => {
 });
 route.post("/", protected, async (req, res, next) => {
   try {
-    const { setup, punchline } = req.body;
-    if (setup && punchline) {
-      const joke = Db.insert(req.body);
+    const { setup, punch_line } = req.body;
+    if (setup && punch_line) {
+      const joke = await Db.insert(req.body);
       res.status(201).json({ created: true, joke });
     } else {
       next({ code: 400 });

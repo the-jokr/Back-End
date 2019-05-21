@@ -1,9 +1,16 @@
 # Back-End
 BaseURL
-https://jokr.herokuapp.com/api/auth
+https://jokr.herokuapp.com/api/
 
 Login
-/login
+/auth/login
 
 Register
-/register
+/auth/register
+
+Jokes
+/jokes
+
+wallet
+/wallet
+

@@ -17,23 +17,6 @@ You're a funny guy, but you keep losing your list of jokes and forgetting which 
 - [Auth routes](#AUTH-ROUTES)
   - [Register](#REGISTER)
   - [Login](#Login)
-- [User routes](#user-routes)
-  - [Get all users](#Get-all-users)
-  - [Get user by ID](#Get-user-by-id)
-  - [Delete user](#delete-user)
-  - [Update user](#update-user)
-
-* [Pokemon routes](#pokemon-routes)
-  - [Get all pokemon](#get-all-pokemon)
-  - [Get ErrThang](#GET-ERRTHANG)
-  - [Get all pokemon with pagination](#get-all-pokemon-with-pagination)
-  - [Get pokemon by ID](#get-pokemon-by-id)
-* [Backpack routes](#-BACKPACK-ROUTES)
-  - [Get All from backpack](#GET-ALL)
-  - [Post to Backpack](#POST-TO-BACKPACK)
-  - [Get backpack of user](#GET-BACKPACK-OF-USER)
-  - [Delete Pokemon in Backpack](#DELETE-POKEMON-IN-BACKPACK)
-
 ---
 
 # Overview

@@ -13,6 +13,9 @@ function get() {
   return Db("jokes");
 }
 function getById(id) {
+  return Db("jokes")
+    .where({ id })
+    .first();
   return Db("jokes as j")
     .join("joke_wallet as jw", "j.id", "=", "jw.joke_id")
     .join("users as u", "u.id", "=", "jw.author_id")
@@ -35,9 +38,9 @@ function getBy(filter) {
     .where(filter)
     .first();
 }
-function insert(user) {
+function insert(joke) {
   return Db("jokes")
-    .insert(user, "id")
+    .insert(joke, "id")
     .then(ids => getById(ids[0]));
 }
 

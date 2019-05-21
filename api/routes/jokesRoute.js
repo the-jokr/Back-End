@@ -1,6 +1,7 @@
 const express = require("express");
 const route = express.Router();
 const Db = require("../../data/Models/jokesModel");
+const walletDb = require("../../data/Models/walletModel");
 const { protected } = require("../middleware/auth");
 const rngGenerator = require("../middleware/rngGenerator");
 route.get("/", async (req, res, next) => {
@@ -35,6 +36,7 @@ route.get("/:id", async (req, res, next) => {
 });
 route.post("/", protected, async (req, res, next) => {
   try {
+    console.log(req.decodedToken);
     const { setup, punch_line } = req.body;
     if (setup && punch_line) {
       const joke = await Db.insert(req.body);

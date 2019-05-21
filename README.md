@@ -76,71 +76,38 @@ yarn test
 
 ## SCHEMA
 
-`users`
+`user`
 
 ```
-{
-  "id": 1,                            // Integer [Primary key]
-  "username": "admin",                // String [Required, Unique]
-  "password": "password",             // String [Required]
-  "email": "admin@administrator.com"  // String [Required, Unique]
-}
+    {
+        "id": 1,                            // Integer [Primary key]
+        "username": "admin",                // String [Required, Unique]
+        "password": "password",             // String [Required]
+        "roles_id: 1                        // Integer [Required, Unique]
+    }
 ```
 
-`pokemon`
+`joke`
 
 ```
-{
-  "id": 1,                                      // Integer
-  "name": "Bulbasaur",                          // Text
-  "pokedex_number": 1,                          // Integer
-  "type1": "grass",                             // Text
-  "type2": "poison",                            // Text
-  "height_m": 0.7,                              // Numeric(3, 1)
-  "weight_kg": 6.9,                             // Numeric(4, 1)
-  "abilities": "['Overgrow', 'Chlorophyll']",   // Text
-  "base_happiness": 70,                         // Integer
-  "hp": 45,                                     // Integer
-  "attack": 49,                                 // Integer
-  "defense": 49,                                // Integer
-  "sp_attack": 65,                              // Integer
-  "sp_defense": 65,                             // Integer
-  "speed": 45,                                  // Integer
-  "generation": 1,                              // Integer
-  "capture_rate": "45"                          // Text
-}
+    {
+        "id": 1,                                            // Integer [Primary Key]
+        "category": "Animal",                               // String [Max 50 characters, Required]
+        "setup": "What is smarter than a talking bird?",    // String [Max 500 character, Required]
+        "punch_line": "A spelling bee",                     // String [Max 500 character, Required]
+        "likes": 999                                        // Integer [Defaulted to 0]
+    }
 ```
 
-`backpack`
+`joke wallet`
 
 ```
-{
-  "id": 1,                                      // Integer [Primary key]
-  "type1": fire,                                // String [Required]
-  "type2": flying                               // String
-  "name": Charizard                             // String [Required]
-  "pokedex_number": 9,                          // Integer [Required, Unsigned]
-  "users_id": 1                                 // Integer [Foreign Key]
-}
+    {
+        "id": 1,
+        "user_id": 1,
+        "joke_id": 1
+    }
 
-```
-
-[Back to Table of Contents](#table-of-contents)
-
-## Pagination
-
-```
-navigate at the end of url by: ?page=2
-
-{
-  "total": 1,
-  "last_page": 1,
-  "per_page": 15,
-  "current_page": 1,
-  "from": 0,
-  "to": 1,
-  "data": []
-}
 ```
 
 [Back to Table of Contents](#table-of-contents)
@@ -153,11 +120,11 @@ navigate at the end of url by: ?page=2
   password: 'password'
 
 
-  username: 'beniscool',
+  username: 'test',
   password: 'password'
 
 
-  username: 'ceciljohn',
+  username: 'test2',
   password: 'password'
 
 ```
@@ -166,21 +133,18 @@ navigate at the end of url by: ?page=2
 
 ## API ENDPOINTS
 
-| name                          | method | endpoint              | description                                                                                                                         |
-| ----------------------------- | ------ | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Register                      | POST   | /auth/register        | Creates a new `user` to the users table in the database                                                                             |
-| Login                         | POST   | /auth/login           | Checks whether payload from the `body` matches with a user in the database. On Succesful login, returns a message and a `JWT Token` |
-| Get all users                 | GET    | /api/users            | `PROTECTED ROUTE` - Returns an array of user objects of all users                                                                   |
-| Get user by ID                | GET    | /api/users/:id        | `PROTECTED ROUTE` - Returns an array of object of selected user by ID                                                               |
-| Delete user by ID             | DELETE | /api/users/:id        | delete selected user by ID                                                                                                          |
-| Get all pokemon               | GET    | /api/pokemon/all      | `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon(limited)                                                     |
-| Get all pokemon by pagination | GET    | /api/pokemon          | `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon with pagination                                              |
-| Get ErrThang                  | GET    | /api/pokemon/errthang | `PROTECTED ROUTE` - Gets all pokemon with all properties without pagination                                                         |
-| Get pokemon by ID             | GET    | /api/pokemon/:id      | `PROTECTED ROUTE` - Returns an array of pokemon objects of selected pokemon by ID                                                   |
-| Get backpack of specific user | GET    | /api/backpack:id      | `PROTECTED ROUTE` - Returns and array of objects of all pokemons in the user's backpack                                             |
-| Get all pokemon               | GET    | /api/backpack         | `PROTECTED ROUTE` - returns an array of pokemon in backpack object                                                                  |
-| Insert to backpack            | POST   | /api/backpack         | `PROTECTED ROUTE` - Inserts payload into the backpack database                                                                      |
-| Delete in backpack            | DELETE | /api/backpack/:id     | `PROTECTED ROUTE` - Delete a specific pokemon in backpack                                                                           |
+| name                        | method | endpoint       | description                                                                                                                         |
+| --------------------------- | ------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Register                    | POST   | /auth/register | Creates a new `user` to the users table in the database                                                                             |
+| Login                       | POST   | /auth/login    | Checks whether payload from the `body` matches with a user in the database. On Succesful login, returns a message and a `JWT Token` |
+| Get all users               | GET    | /auth          | `PROTECTED ROUTE` - Returns an array of user objects of all users                                                                   |
+| Get all jokes               | GET    | /jokes         | `PROTECTED ROUTE` - Returns an array of joke objects                                                                                |
+| Get a joke by ID            | GET    | /jokes/:id     | `PROTECTED ROUTE` - Returns an a joke object by ID                                                                                  |
+| Get wallet of specific user | GET    | /wallet        | `PROTECTED ROUTE` - Returns and array of objects of all jokes in the user's wallet                                                  |
+| Add a new joke              | POST   | /jokes         | `PROTECTED ROUTE` - Returns the joke object created                                                                                 |
+| Edit a joke                 | PUT    | /jokes/:id     | `PROTECTED ROUTE` - Returns the joke object created                                                                                 |
+| Add to wallet               | POST   | /wallet/:id    | `PROTECTED ROUTE` - Inserts payload into the backpack database                                                                      |
+| Delete from wallet          | DELETE | /wallet/:id    | `PROTECTED ROUTE` - Delete a specific wallet by ID                                                                                  |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -207,16 +171,16 @@ _HTTP method:_ **[POST]**
 | name       | type   | required | description    |
 | ---------- | ------ | -------- | -------------- |
 | `username` | String | Yes      | Must be unique |
-| `email`    | String | Yes      | Must be unique |
 | `password` | String | Yes      |                |
+| `roles_id` | String | Yes      | Must be unique |
 
 _example:_
 
 ```
 {
-  username: "ceciljohn",
+  username: "admin",
   password: "password",
-  email: "cj@email.com"
+  roles_id: 1
 }
 ```
 
@@ -228,7 +192,7 @@ _example:_
 
 ```
 {
-  "message" : "You have registered, ceciljohn!"
+  "token" : "You have registered, ceciljohn!"
 }
 ```
 

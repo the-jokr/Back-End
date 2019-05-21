@@ -10,7 +10,7 @@ serverConfig(server);
 
 server.use("/api/auth", authRoute);
 server.use("/api/jokes", jokesRoute);
-server.use("/api/wallet", walletRoute);
+server.use("/api/wallet", protected, walletRoute);
 
 server.use(errorHandler);
 

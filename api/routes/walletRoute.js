@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const Db = require("../../data/Models/jokesModel");
+const Db = require("../../data/Models/walletModel");
 
 route.get("/", async (req, res, next) => {
   try {

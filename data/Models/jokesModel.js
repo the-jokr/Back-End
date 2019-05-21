@@ -17,12 +17,14 @@ function getById(id) {
     .where({ id })
     .first();
 }
+// function getTopTen(){
+//   return Db('jokes').orderBy('upvotes')
+// }
 function getBy(filter) {
   return Db("jokes")
     .where(filter)
     .first();
 }
-
 function insert(user) {
   return Db("jokes")
     .insert(user, "id")

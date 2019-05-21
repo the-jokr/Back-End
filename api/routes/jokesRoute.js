@@ -10,6 +10,17 @@ route.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
+route.get("/random", async (req, res, next) => {
+  try {
+    const id = Math.ceil(Math.random() * 10);
+    const joke = await Db.getById(id);
+    res.status(200).json(joke);
+  } catch (err) {
+    next(err);
+  }
+});
+
 route.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -51,7 +62,7 @@ route.delete("/:id", async (req, res, next) => {
     const { id } = req.params;
     const deleted = await Db.remove(id);
     if (deleted) {
-      res.status(204).json({ msg: "delete success" });
+      res.status(200).json({ msg: "delete success" });
     } else {
       next({ code: 404 });
     }

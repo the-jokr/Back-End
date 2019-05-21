@@ -7,12 +7,12 @@ exports.up = function(knex, Promise) {
     .createTable("users", field => {
       field.increments();
       field.string("username", 50);
-      field.string("password", 256);
+      field.string("password", 1000);
       field
         .integer("roles_id")
         .references("id")
         .inTable("roles")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
     .createTable("jokes", field => {
@@ -27,13 +27,13 @@ exports.up = function(knex, Promise) {
         .integer("user_id")
         .references("id")
         .inTable("users")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
       field
         .integer("joke_id")
         .references("id")
-        .inTable("users")
-        .onDelete("RESTRICT")
+        .inTable("jokes")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });
 };

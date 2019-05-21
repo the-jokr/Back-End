@@ -12,6 +12,7 @@ route.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
 route.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;

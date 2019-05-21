@@ -10,17 +10,17 @@ exports.seed = function(knex, Promise) {
         {
           username: "admin",
           password: bcrypt.hashSync("password", 10),
-          roles_id: 1
+          roles: "admin"
         },
         {
           username: "test",
           password: bcrypt.hashSync("password", 10),
-          roles_id: 1
+          roles: "admin"
         },
         {
           username: "test2",
           password: bcrypt.hashSync("password", 10),
-          roles_id: 2
+          roles: "admin"
         }
       ]);
     });

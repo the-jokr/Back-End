@@ -1,19 +1,10 @@
 exports.up = function(knex, Promise) {
   return knex.schema
-    .createTable("roles", field => {
-      field.increments();
-      field.string("name", 50);
-    })
     .createTable("users", field => {
       field.increments();
       field.string("username", 50);
       field.string("password", 1000);
-      field
-        .integer("roles_id")
-        .references("id")
-        .inTable("roles")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      field.string("roles", 50);
     })
     .createTable("jokes", field => {
       field.increments();
@@ -36,6 +27,12 @@ exports.up = function(knex, Promise) {
         .inTable("jokes")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+      field
+        .integer("author_id")
+        .references("id")
+        .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     });
 };
 
@@ -43,6 +40,5 @@ exports.down = function(knex, Promise) {
   return knex.schema
     .dropTableIfExists("joke_wallet")
     .dropTableIfExists("jokes")
-    .dropTableIfExists("users")
-    .dropTableIfExists("roles");
+    .dropTableIfExists("users");
 };

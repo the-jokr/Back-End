@@ -10,7 +10,7 @@ Register
 
 Jokes
 /jokes
-
+`/GET`
 wallet
 /wallet
 

@@ -34,11 +34,11 @@ route.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.post("/", protected, async (req, res, next) => {
+route.post("/", async (req, res, next) => {
   try {
     const { setup, punch_line } = req.body;
     if (setup && punch_line) {
-      const joke = Db.insert(req.body);
+      const joke = await Db.insert(req.body);
       res.status(201).json({ created: true, joke });
     } else {
       next({ code: 400 });

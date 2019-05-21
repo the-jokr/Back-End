@@ -34,7 +34,7 @@ route.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.post("/", async (req, res, next) => {
+route.post("/", protected, async (req, res, next) => {
   try {
     const { setup, punch_line } = req.body;
     if (setup && punch_line) {

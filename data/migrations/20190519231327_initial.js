@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
       field.timestamp("created_at").defaultTo(knex.fn.now());
     })
     .createTable("joke_wallet", field => {
-      field.increments();
+      field.unique(["user_id", "joke_id"], "yothisworks").primary(); // uses an index with 2 combination
       field
         .integer("user_id")
         .unsigned()

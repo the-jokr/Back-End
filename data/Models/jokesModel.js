@@ -40,7 +40,6 @@ function insert(joke) {
     .insert(joke, "id")
     .then(ids => ids[0]);
 }
-
 function update(id, joke) {
   return Db("jokes")
     .where({ id })

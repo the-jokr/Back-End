@@ -25,10 +25,10 @@ route.get("/:id", async (req, res, next) => {
 });
 route.post("/", async (req, res, next) => {
   try {
-    const { setup, punchline } = req.body;
-    if (setup && punchline) {
-      const joke = Db.insert(req.body);
-      res.status(201).json({ created: true, joke });
+    const { user_id, joke_id, author_id } = req.body;
+    if (user_id && joke_id && author_id) {
+      const id = await Db.insert(req.body);
+      res.status(201).json({ created: true, id: id });
     } else {
       next({ code: 400 });
     }

@@ -36,10 +36,17 @@ route.get("/:id", async (req, res, next) => {
 });
 route.post("/", protected, async (req, res, next) => {
   try {
-    console.log(req.decodedToken);
     const { setup, punch_line } = req.body;
     if (setup && punch_line) {
+      const id = req.decodedToken.subject;
       const joke = await Db.insert(req.body);
+      console.log(joke);
+      await walletDb.insert({
+        user_id: id,
+        joke_id: joke,
+        author_id: id
+      });
+
       res.status(201).json({ created: true, joke });
     } else {
       next({ code: 400 });

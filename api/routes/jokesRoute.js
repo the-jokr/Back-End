@@ -1,7 +1,8 @@
 const express = require("express");
 const route = express.Router();
 const Db = require("../../data/Models/jokesModel");
-
+const { protected } = require("../middleware/auth");
+const rngGenerator = require("../middleware/rngGenerator");
 route.get("/", async (req, res, next) => {
   try {
     const jokes = await Db.get();
@@ -11,10 +12,9 @@ route.get("/", async (req, res, next) => {
   }
 });
 
-route.get("/random", async (req, res, next) => {
+route.get("/random", rngGenerator, async (req, res, next) => {
   try {
-    const id = Math.ceil(Math.random() * 10);
-    const joke = await Db.getById(id);
+    const joke = await Db.getById(req.rng);
     res.status(200).json(joke);
   } catch (err) {
     next(err);
@@ -34,7 +34,7 @@ route.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.post("/", async (req, res, next) => {
+route.post("/", protected, async (req, res, next) => {
   try {
     const { setup, punchline } = req.body;
     if (setup && punchline) {
@@ -47,7 +47,8 @@ route.post("/", async (req, res, next) => {
     next(err);
   }
 });
-route.put("/:id", async (req, res, next) => {
+
+route.put("/:id", protected, async (req, res, next) => {
   try {
     const { id } = req.params;
     const change = req.body;
@@ -57,7 +58,7 @@ route.put("/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.delete("/:id", async (req, res, next) => {
+route.delete("/:id", protected, async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await Db.remove(id);

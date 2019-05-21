@@ -20,6 +20,7 @@ exports.up = function(knex, Promise) {
       field.string("category", 50);
       field.text("setup", 500);
       field.text("punch_line", 500);
+      field.integer("likes").defaultTo(0);
     })
     .createTable("joke_wallet", field => {
       field.increments();

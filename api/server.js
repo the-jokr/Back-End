@@ -9,7 +9,7 @@ const { protected } = require("./middleware/auth");
 serverConfig(server);
 
 server.use("/api/auth", authRoute);
-server.use("/api/jokes", protected, jokesRoute);
+server.use("/api/jokes", jokesRoute);
 server.use("/api/wallet", protected, walletRoute);
 
 server.use(errorHandler);

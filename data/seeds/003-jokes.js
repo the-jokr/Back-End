@@ -8,17 +8,20 @@ exports.seed = function(knex, Promise) {
         {
           category: "Animal",
           setup: "What is smarter than a talking bird?",
-          punch_line: "A spelling bee"
+          punch_line: "A spelling bee",
+          likes: 999
         },
         {
           category: "Pirate",
           setup: "Why couldn't the kid see the pirate movie?",
-          punch_line: "Because it was rated arrr!"
+          punch_line: "Because it was rated arrr!",
+          likes: 100
         },
         {
           category: "Body Part",
           setup: "I used to hate facial hair",
-          punch_line: "but then it grew on me"
+          punch_line: "but then it grew on me",
+          likes: 5
         }
       ]);
     });

@@ -10,11 +10,31 @@ module.exports = {
 };
 
 function get() {
-  return Db("jokes");
+  return Db("jokes as j")
+    .join("joke_wallet as jw", "j.id", "=", "jw.joke_id")
+    .join("users as u", "u.id", "=", "jw.author_id")
+    .select(
+      "j.id",
+      "j.category",
+      "j.setup",
+      "j.punch_line as punchLine",
+      "j.likes",
+      "u.username as author"
+    );
 }
 function getById(id) {
-  return Db("jokes")
-    .where({ id })
+  return Db("jokes as j")
+    .join("joke_wallet as jw", "j.id", "=", "jw.joke_id")
+    .join("users as u", "u.id", "=", "jw.author_id")
+    .select(
+      "j.id",
+      "j.category",
+      "j.setup",
+      "j.punch_line as punchLine",
+      "j.likes",
+      "u.username as author"
+    )
+    .where({ "j.id": id })
     .first();
 }
 // function getTopTen(){

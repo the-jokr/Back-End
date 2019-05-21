@@ -32,7 +32,8 @@ exports.up = function(knex, Promise) {
         .references("id")
         .inTable("users")
         .onDelete("RESTRICT")
-        .onUpdate("CASCADE");
+        .onUpdate("CASCADE")
+        .defaultTo(1);
     });
 };
 

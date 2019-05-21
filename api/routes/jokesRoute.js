@@ -36,8 +36,8 @@ route.get("/:id", async (req, res, next) => {
 });
 route.post("/", protected, async (req, res, next) => {
   try {
-    const { setup, punchline } = req.body;
-    if (setup && punchline) {
+    const { setup, punch_line } = req.body;
+    if (setup && punch_line) {
       const joke = Db.insert(req.body);
       res.status(201).json({ created: true, joke });
     } else {

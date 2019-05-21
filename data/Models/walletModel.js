@@ -29,10 +29,11 @@ function insert(joke) {
     .then(ids => getById(ids[0]));
 }
 
-function update(id, user) {
+function update(id, changes) {
   return Db("joke_wallet")
     .where({ id })
-    .update(user);
+    .update(changes)
+    .then(count => getById(id));
 }
 function remove(id) {
   return Db("joke_wallet")

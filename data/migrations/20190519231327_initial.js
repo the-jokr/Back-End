@@ -25,7 +25,6 @@ exports.up = function(knex, Promise) {
       field
         .integer("user_id")
         .unsigned()
-        .notNullable()
         .references("id")
         .inTable("users")
         .onDelete("CASCADE")
@@ -33,7 +32,6 @@ exports.up = function(knex, Promise) {
       field
         .integer("joke_id")
         .unsigned()
-        .notNullable()
         .references("id")
         .inTable("jokes")
         .onDelete("CASCADE")
@@ -41,7 +39,6 @@ exports.up = function(knex, Promise) {
       field
         .integer("author_id")
         .unsigned()
-        .notNullable()
         .references("id")
         .inTable("users")
         .onDelete("RESTRICT")

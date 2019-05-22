@@ -58,6 +58,7 @@ function insert(joke) {
 }
 
 function update(id, changes) {
+  console.log(id);
   return Db("joke_wallet")
     .where({ id })
     .update(changes)

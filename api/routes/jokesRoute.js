@@ -41,7 +41,6 @@ route.post("/", protected, async (req, res, next) => {
       const id = req.decodedToken.subject;
       const joke = await Db.insert(req.body);
       await walletDb.insert({
-        user_id: id,
         joke_id: joke,
         author_id: id
       });
@@ -65,6 +64,7 @@ route.put("/:id", protected, async (req, res, next) => {
     next(err);
   }
 });
+
 route.delete("/:id", protected, async (req, res, next) => {
   try {
     const { id } = req.params;

@@ -36,7 +36,7 @@ route.post("/", async (req, res, next) => {
     next(err);
   }
 });
-route.put("/:id", async (req, res, next) => {
+route.put("/favorite/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const change = req.body;
@@ -46,7 +46,7 @@ route.put("/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.delete("/:id", async (req, res, next) => {
+route.delete("/favorite/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await Db.remove(id);
@@ -59,4 +59,5 @@ route.delete("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
 module.exports = route;

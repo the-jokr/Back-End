@@ -52,7 +52,8 @@ function getBy(filter) {
 
 function insert(joke) {
   return Db("joke_wallet")
-    .insert(joke, "id")
+    .insert(joke)
+    .returning("joke_wallet.id")
     .then(ids => ids[0]);
 }
 

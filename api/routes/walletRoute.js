@@ -46,7 +46,7 @@ route.put("/favorite/:id", async (req, res, next) => {
     next(err);
   }
 });
-route.delete("/:id", async (req, res, next) => {
+route.delete("/favorite/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const deleted = await Db.remove(id);

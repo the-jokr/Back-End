@@ -36,7 +36,7 @@ route.post("/", async (req, res, next) => {
     next(err);
   }
 });
-route.put("/:id", async (req, res, next) => {
+route.put("/favorite/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const change = req.body;

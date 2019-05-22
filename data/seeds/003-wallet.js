@@ -13,6 +13,3 @@ exports.seed = function(knex, Promise) {
       ]);
     });
 };
-// {
-//   wallet_id, user_id, username, savedJokes, submittedJokes;
-// }

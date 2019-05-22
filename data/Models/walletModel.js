@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function get() {
-  return Db("joke_wallet as jw");
+  return Db("joke_wallet as jw").orderBy("jw.id");
 }
 
 async function getById(id) {

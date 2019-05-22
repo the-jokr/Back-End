@@ -17,7 +17,7 @@ function get() {
       "j.id",
       "j.category",
       "j.setup",
-      "j.punch_line as punchLine",
+      "j.punch_line as punch_line",
       "j.likes",
       "u.id as author_id",
       "u.username as author"

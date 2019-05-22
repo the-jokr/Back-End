@@ -12,6 +12,7 @@ module.exports = {
 function get() {
   return Db("joke_wallet as jw");
 }
+
 async function getById(id) {
   const wallet = await Db("joke_wallet as jw")
     .join("users as u", "u.id", "=", "jw.user_id")

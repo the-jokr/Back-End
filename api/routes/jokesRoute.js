@@ -65,6 +65,7 @@ route.put("/:id", protected, async (req, res, next) => {
     next(err);
   }
 });
+
 route.delete("/:id", protected, async (req, res, next) => {
   try {
     const { id } = req.params;

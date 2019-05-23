@@ -27,8 +27,8 @@ function get() {
 }
 function getById(id) {
   return Db("jokes as j")
-    .join("joke_wallet as jw", "j.id", "=", "jw.joke_id")
-    .join("users as u", "u.id", "=", "jw.author_id")
+    .leftJoin("joke_wallet as jw", "j.id", "=", "jw.joke_id")
+    .leftJoin("users as u", "u.id", "=", "jw.author_id")
     .select(
       "j.id",
       "j.category",

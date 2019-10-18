@@ -5,78 +5,78 @@ const walletDb = require("../../data/Models/walletModel");
 const { protected } = require("../middleware/auth");
 const rngGenerator = require("../middleware/rngGenerator");
 route.get("/", async (req, res, next) => {
-  try {
-    const jokes = await Db.get();
-    res.status(200).json(jokes);
-  } catch (err) {
-    next(err);
-  }
+    try {
+        const jokes = await Db.get();
+        res.status(200).json(jokes);
+    } catch (err) {
+        next(err);
+    }
 });
 
 route.get("/random", rngGenerator, async (req, res, next) => {
-  try {
-    const joke = await Db.getById(req.rng);
-    res.status(200).json(joke);
-  } catch (err) {
-    next(err);
-  }
+    try {
+        const joke = await Db.getById(req.rng);
+        res.status(200).json(joke);
+    } catch (err) {
+        next(err);
+    }
 });
 route.get("/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const joke = await Db.getById(id);
-    if (joke) {
-      res.status(200).json(joke);
-    } else {
-      next({ code: 404 });
+    try {
+        const { id } = req.params;
+        const joke = await Db.getById(id);
+        if (joke) {
+            res.status(200).json(joke);
+        } else {
+            next({ code: 404 });
+        }
+    } catch (err) {
+        next(err);
     }
-  } catch (err) {
-    next(err);
-  }
 });
 route.post("/", protected, async (req, res, next) => {
-  try {
-    const { setup, punch_line } = req.body;
-    if (setup && punch_line) {
-      const id = req.decodedToken.subject;
-      const joke = await Db.insert(req.body);
-      await walletDb.insert({
-        joke_id: joke,
-        author_id: id
-      });
+    try {
+        const { setup, punch_line } = req.body;
+        if (setup && punch_line) {
+            const id = req.decodedToken.subject;
+            const joke = await Db.insert(req.body);
+            await walletDb.insert({
+                joke_id: joke,
+                author_id: id
+            });
 
-      res.status(201).json({ created: true, joke });
-    } else {
-      next({ code: 400 });
+            res.status(201).json({ created: true, joke });
+        } else {
+            next({ code: 400 });
+        }
+    } catch (err) {
+        next(err);
     }
-  } catch (err) {
-    next(err);
-  }
 });
 
 route.put("/:id", protected, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const change = req.body;
-    const update = await Db.update(id, change);
-    res.status(200).json(update);
-  } catch (err) {
-    next(err);
-  }
+    try {
+        const { id } = req.params;
+        const change = req.body;
+        const update = await Db.update(id, change);
+        res.status(200).json(update);
+    } catch (err) {
+        next(err);
+    }
 });
 
 route.delete("/:id", protected, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const deleted = await Db.remove(id);
-    if (deleted) {
-      res.status(200).json({ msg: "delete success" });
-    } else {
-      next({ code: 404 });
+    try {
+        const { id } = req.params;
+        const deleted = await Db.remove(id);
+        if (deleted) {
+            res.status(200).json({ msg: "delete success" });
+        } else {
+            next({ code: 404 });
+        }
+    } catch (err) {
+        next(err);
     }
-  } catch (err) {
-    next(err);
-  }
 });
 
 module.exports = route;
